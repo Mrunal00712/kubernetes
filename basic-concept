@@ -1,0 +1,19 @@
+kubernetes can manage 100 of things
+  - monitoring conainer
+  - handling the 10s of request at a time
+  - if some application haveing limitat one point of time they can handele 100 request, i wiil tell the kubernetes program keep on monitoring 
+    if the ram utilazation goes about 80%, may be cpu utilization goes about 90% , no. of request goes about 100 of request then launch one more OS withy same copy(= load balancing)
+    you dont have to woory , load increase launch one more, one more == scaling
+    
+
+
+
+
+
+
+
+
+
+
+
+    
