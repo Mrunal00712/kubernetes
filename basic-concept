@@ -1,14 +1,16 @@
 kubernetes can manage 100 of things
   - monitoring conainer
-  - handling the 10s of request at a time
+  - handling the 100s of request at a time
   - if some application haveing limitat one point of time they can handele 100 request, i wiil tell the kubernetes program keep on monitoring 
     if the ram utilazation goes about 80%, may be cpu utilization goes about 90% , no. of request goes about 100 of request then launch one more OS withy same copy(= load balancing)
     you dont have to woory , load increase launch one more, one more == scaling
-    
+
+Kubernetes can manage entire container infrastructure, it's not the one tool other tool docker swarm, marathon,
+  but with market, feature and facility , very much mature that is kubernetes 
 
 
-
-
+kubernetes does not have capability to launch the application == no  XXX bt it can helps us to launch the application == yes
+    kubernetes will go and contact to container engine and ask them to launch the container or app and this is managed by me(kubernetes) 
 
 
 
