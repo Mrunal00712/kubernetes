@@ -13,6 +13,11 @@ kubernetes does not have capability to launch the application == no  XXX bt it c
     kubernetes will go and contact to container engine and ask them to launch the container or app and this is managed by me(kubernetes) 
 
 
+How to Install kubernetes program (Install/ setup )
+  - minikube is a program who helps us to set up the kubernetes lab (windows(VM BoX(kube server))
+  - kubectl is the clientside tool which passes the instruction , and whatever instruction we pass kubernetes will do for us
+  - minikube is the automation tool which configure the kubernetes cluster
+
 
 
 
