@@ -1,1 +1,37 @@
+metadat + container == pod
+in kubernetes typicaly search means selector, if we are searching something is we are selecting something , but we can only select if the labels are set
 
+Selectors => two types (1)Equality Based
+                       (2) Set-Based Selectopr == more user friendlty
+
+
+kubectl get pods --show-labels
+kubectl get pods --selector "dc=US"      //= equality based selection
+kubectl get pods --selector "team=team1" --show-labels        //= equality based selection
+kubectl get pods --selector "team=team1,dc=IN" --show-labels  //= equality based selection
+kubectl get pods --selector "team!=team1,dc=IN" --show-labels     //= equality based selection
+
+kubectl get pods --selector "dc in (IN)" --show-labels     //Set-Based Selectopr
+kubectl get pods --selector "dc in (IN,US)" --show-labels     //Set-Based Selectopr
+kubectl get pods --selector "dc notin (IN,US)" --show-labels     //Set-Based Selectopr
+
+
+first_pod.yml
+***************************************************
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod1
+  labels:
+    dc: IN
+    team: team1
+
+spec:
+  containers:
+  - name: "myc1"
+    image: "httpd"
+********************************************
+kubectl get pods --show-labels
+
+
+docs:= https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
