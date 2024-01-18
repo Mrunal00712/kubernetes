@@ -1,0 +1,93 @@
+If we launch only one pod then the SPOF can occur 
+when we are running same copy in pods then it is   called repica,
+with the help of replica we can create a better system design
+
+Vertical Scaling(increasing the ram, cpu of same laptop)   XX    Hrizontal scaling(increasing the no.of laptops)
+
+Load balancing is the service/ program acts as an intermidate program(also knows as Procy program= doing this behalf of you)  between the server and clients
+  - means client sending request , that request is collected by Intermidate program,
+      and that program will send your req to ser , get back and sent to client 
+  - Interdimate program/ proxy porgram will help you in balancing the traffic
+  - this program is called as Load Balancer, behind the seen they use Round Robin algorithm in managing the traffic
+  - in kubernetes you dont want to worry about the load balancing , just tell them i required LB,
+      they will take care by creating the Backend servers, register them with frontend serber(Load Balancer), enore thing they will set for you
+      for achieving this they have on kubernetes resource available called service resource (name is service but entire equal to Load Balancer)
+      like pod is resource, rc controller is on resource like this we have service,
+      kubernetes provide one service to you Cluster IP but this is not useful for us now , we can use this service to create our LB
+       # kubectl get service
+
+***************************************************************************************************************************
+Their are different types of Service(==Load Balancer) are available 
+How to create the service
+
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl create -f rc.yml
+replicationcontroller/myrc2 created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+NAME          READY   STATUS              RESTARTS   AGE
+myrc2-9x5jd   0/1     ContainerCreating   0          8s
+myrc2-jmdh5   0/1     ContainerCreating   0          8s
+myrc2-k6tgk   1/1     Running             0          8s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl scale --replicas=5  rc/myrc2
+replicationcontroller/myrc2 scaled
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+myrc2-8nsww   1/1     Running   0          18s
+myrc2-9x5jd   1/1     Running   0          2m45s
+myrc2-jmdh5   1/1     Running   0          2m45s
+myrc2-k6tgk   1/1     Running   0          2m45s
+myrc2-wsft2   1/1     Running   0          18s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl expose --type=NodePort  --port=80  rc/myrc2
+service/myrc2 exposed
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get svc
+NAME         TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP        21h
+myrc2        NodePort    10.110.231.85   <none>        80:32237/TCP   19s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl describe svc myrc2
+Name:                     myrc2
+Namespace:                default
+Labels:                   dc=IN
+Annotations:              <none>
+Selector:                 dc=IN
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.110.231.85
+IPs:                      10.110.231.85
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  32237/TCP
+Endpoints:                10.244.0.16:80,10.244.0.17:80,10.244.0.18:80 + 2 more...
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+C:\Users\MRUNAL\Documents\kubernetes>minikube ip
+192.168.59.100
+
+http://192.168.59.100:32237/ 
+
+*********************************************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+       
+      
+
+
+
+
+
+      
