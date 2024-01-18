@@ -18,6 +18,16 @@ How to Install kubernetes program (Install/ setup )
   - kubectl is the clientside tool which passes the instruction , and whatever instruction we pass kubernetes will do for us
   - minikube is the automation tool which configure the kubernetes cluster
 
+kubectl.exe get pods
+kubectl.exe delete pods myweb
+kubectl.exe create -f first_pod.yml
+kubectl.exe get deploy
+kubectl describe pods
+kubectl.exe delete pods --all
+docs= kubrnetes.io/docs/concept/workloads/pods/
+kubernetes not lkaunch the conainer irectly first they aunch the POD inside POD they launch the container
+single container pod X multi container pod 
+
 
 
 
