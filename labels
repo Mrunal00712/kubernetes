@@ -35,3 +35,22 @@ kubectl get pods --show-labels
 
 
 docs:= https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+****************************************************************************************************************************************
+Replicas
+
+Replication controller
+kubectl get rc
+
+39: kubectl create -f rc.yml                                      │
+operable program or batch file.     │40: kubectl get pods --selector  --show-labels                    │
+                                    │41: kubectl get pods  --show-labels                               │
+C:\Users\MRUNAL\Documents\kubernetes│42: kubectl get rc                                                │
+                                    │43: kubectl create -f rc.yml                                      │
+                                    │44: kubectl get pods  --show-labels                               │
+                                    │45: kubectl get describe rc                                       │
+                                    │46: kubectl describe rc                                           │
+                                    │47: kubectl delete pods --all                                     │
+                                    │48: kubectl get pods --show-labels
+
+
+kubectl apply -f rc.yml
