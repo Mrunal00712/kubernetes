@@ -112,7 +112,99 @@ so any client come up they go to ELB(ver much powerful) and they will send the t
 this is the one of the power kubernetes provide to you.
 
 
+# kubectl delete all --all // every thing is deleted, very dangerous command
+************************************************************************************
+service_nodeport.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name:  mywebservice
+spec:
+  type:  NodePort
+  selector:
+    dc:  IN
+  ports:
+    -  port: 80
+       targetPort: 80
+       nodePort: 30000
+*********************************************************************************
 
+C:\Users\MRUNAL\Documents\kubernetes>kubectl create -f rc.yml
+replicationcontroller/myrc1 created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+NAME          READY   STATUS              RESTARTS   AGE
+myrc1-8m2gf   0/1     ContainerCreating   0          8s
+
+C:\Users\MRUNAL\Documents\kubernetes>notepad service_nodeport.yml
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl create -f service_nodeport.yml
+service/mywebservice created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get svc
+NAME           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes     ClusterIP   10.96.0.1        <none>        443/TCP        16m
+mywebservice   NodePort    10.111.251.205   <none>        80:30000/TCP   14s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl describe svc/mywebservice
+Name:                     mywebservice
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 dc=IN
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.111.251.205
+IPs:                      10.111.251.205
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  30000/TCP
+Endpoints:                10.244.0.22:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Events:                   <none>
+
+C:\Users\MRUNAL\Documents\kubernetes>minikube ip
+192.168.59.100
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl scale rc myrc1 --replicas=3
+replicationcontroller/myrc1 scaled
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get rc
+NAME    DESIRED   CURRENT   READY   AGE
+myrc1   3         3         3       17m
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+NAME          READY   STATUS    RESTARTS   AGE
+myrc1-2lf4x   1/1     Running   0          27s
+myrc1-8m2gf   1/1     Running   0          17m
+myrc1-jwgzg   1/1     Running   0          27s
+
+C:\Users\MRUNAL\Documents\kubernetes>curl 192.168.59.100:30000
+<body bgcolor='aqua'>
+<pre>
+
+welcome to vimal web server for testingeth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.244.0.24  netmask 255.255.0.0  broadcast 10.244.255.255
+        ether 5e:fd:46:c1:88:f4  txqueuelen 0  (Ethernet)
+        RX packets 4  bytes 299 (299.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 4  bytes 204 (204.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+</pre>
+
+C:\Users\MRUNAL\Documents\kubernetes>
        
       
 
