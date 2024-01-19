@@ -21,6 +21,7 @@ Their are different types of Service(==Load Balancer) are available
 How to create the service
 
 
+
 C:\Users\MRUNAL\Documents\kubernetes>kubectl create -f rc.yml
 replicationcontroller/myrc2 created
 
@@ -73,13 +74,42 @@ C:\Users\MRUNAL\Documents\kubernetes>minikube ip
 http://192.168.59.100:32237/ 
 
 *********************************************************************************************************************************
+3 Kind of Load Balancer, theree different kind of services
+  1. Cluster IP
+  2. Node Port
+  3. External load balancer 
+
+# kubectl expose  -h   // expose means you are using some kind of service(i.e., load balancer)
 
 
+Condition: whenever you run/deploy App on POD , the client can access but some POD get down or crack using RC it can launch new
+           but its IP change, so client can not connet to IT
+           for this better pratice is you always use the service in between the client and POD, the service IP will be same, 
+            and POD will connect to service and service IP will connect to client, always use service.
+
+threee tpesof services(SVC)
+  1. Cluster IP
+  2. Node Port
+  3. LB or Exyernal
+which service to use it all depends upon the actual and final requirement
 
 
+1. Cluster IP - Private(isolated)
+  if the scerenio is that you want to deploy your POD and client can acess and the service in Same with subnet, LAB, LAN, i.e., private Ip 
+  then here service is used called ClusterIP, means your client needs to connent with same network where the POD aunch, same premises
+2.node port
+your requirement changes, you want your app want to be access from anywhere from the entire world, this time you want to expose to 
+private world + public world here we will you service as NP(node port) 
 
+3. LB or External
+when we want more relibility, more aunthocity on any of the form , what we can do we can buy the physical load balancer device
+that is knows an Appliance , cliend will go there and LB will send traffic to POD
 
-
+REAL Hardware or cloud computing -> AWS -> Elastic Load Balancer(ELB)
+we can tell to kubernetes, now launch the POD for replication controller(RC) for replica part only but I want to use the ELB load 
+balancer of the cloud computing
+so any client come up they go to ELB(ver much powerful) and they will send the traffic to POD 
+this is the one of the power kubernetes provide to you.
 
 
 
