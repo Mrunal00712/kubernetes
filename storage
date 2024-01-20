@@ -1,0 +1,12 @@
+kubernees has there inbuild storage management
+  1. Storage Class
+  2. persistent volume clean
+  3. persistent volume
+
+  
+Storage --> 
+    File server(NFS)
+    Host
+    P.D
+    Cloud
+  
