@@ -1,0 +1,65 @@
+when you want to launch the newer version from v1 to v2 this concept is called as RollOut, by rolling you we have 100% uptime
+  if you want to come back or undo from v3 to v2 this is called RollBack
+
+  It all depend on your strategies how you are going to deploy your PODS , this strategies will deside how much you will require a downtime and uptime
+  normally we have five strategies to Deploy
+    everyone has its own usecase and depend on requirement to requirement 
+  
+  1. Ramped (rolling update)
+     ruuning you application on pod you want to update as soon as you update with newer version or pod your customer see the update 
+      with - no downtimw
+           - seamless
+
+    Kubernetes come with two precreate stratregies with it 1. Ramped and 2. Recreate, this are available in kubernetes we can use it in as it is , bydefaut hey use recreate or rolling update stategy
+
+
+  2.Recreate 
+    Delete/terminate the older one and launch new one, (time reqired 1, 2 sec consume)
+    whoever guys conneted in older pods they will lose the connection and this is not the good user experience
+    means existing customer will face the down time of 2 sec
+    this is how recreate strategy works 
+
+    eg., when any security / valunirability bug fixes  come up we have to forcefully delete the older version and launch new one with update version
+
+    - thsi startegy does not give good user experience 
+    - down time 
+
+
+  1. Rolling update( Ramped)
+    if you dont want any downtime the you can uses Ramded/ rolling update 
+  here kubernetes you some intelligence
+     suppose you have 3 replicas and kubernetyes find that one of them is free or any client session is over from that pod they will delete that pod and launch new updated one
+     then it will now divert the new upcoming traffic on pod 3 and ass soon as pod 1 or 2 customers session over they will delete and launch the new one 
+      here kubernetes not send the trafffic on older version as they are using intillagence they are in processs of update 
+  they are keep on removing oneby one and lkaunching one by one 
+
+      - by this there will no downtime 
+      - 100% uptime 
+
+Deployment only knows to to use the strategy they dont know the service, pod etc.. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
