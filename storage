@@ -10,3 +10,67 @@ Storage -->
     P.D
     Cloud
   
+persistent volume claim (PVC) :- It is a request for volumes by the user
+
+Persistent volume (PV) :- The kubernetes admin fulfills the PVC by providing the persistent volume as per the claim. This process is called PV
+
+**Storage provisioning in Kubernetes
+  Mainifest file for PVC
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: myrahulpvc
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1G
+# kubectl create -f mypvc.yml
+# kubectl get pvc
+
+  Manifest file for PV
+    apiVersion: v1
+    kind: PersistentVolume
+    metadata: 
+      name: mypvtorahul
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      capacity:
+        storage: 1G
+      hostpath:
+        path: /mnt/myrahul
+# kubectl create -f mypvc.yml
+# kubectl get pvc
+
+The PVC will be automatically bound to the PV as soon as it is created
+
+# kubectl get pv
+# kubectl get pvc
+
+  Manifest file for pod with PV
+
+kind: pod
+metadata: 
+  name: "mypod3"
+  labels:
+    region: IN
+spec:
+  volumes:
+  - name: s1
+    persistentVolumeClaim:
+      claimName: myrahulpvc
+
+  containers:
+  - name: "myc2"
+    image: "vimal13/apache-webserver-php"
+    volumeMounts:
+      - mountPath: /var/www/data
+        name: s1
+Creating the pod from the manifest file & storing the data in the pod
+After removing the pod, checkingthe data stored in it 
+
+
+Provisioner 
+Provisioner: K8s.io/minikube-hostpathmeans the persistent volume created by the storage class is actually taking space from the minikube VM  
