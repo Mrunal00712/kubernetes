@@ -1,6 +1,6 @@
 metadat + container == pod
 in kubernetes typicaly search means selector, if we are searching something is we are selecting something , but we can only select if the labels are set
-
+labels help in resource filtering and mapping
 Selectors => two types (1)Equality Based
                        (2) Set-Based Selectopr == more user friendlty
 
@@ -54,3 +54,37 @@ C:\Users\MRUNAL\Documents\kubernetes│42: kubectl get rc                       
 
 
 kubectl apply -f rc.yml
+The replication controller in Kubernetes is responsible ensures that a specified number of pod replicas are running at any point in time
+The replication controller can scale the pods
+The replication controller searches & selects the pods with the help of labels 
+How to create a replication controller
+
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myrc1
+spec:
+  replicas: 3
+  selector:
+    dc: IN
+  template:
+    metadata:
+      name: "mypod"
+      labels:
+        dc: IN
+    spec:
+      containers:
+      - name: "myc2"
+        image: "httpd"
+o In the replication controller if the desired state of the container is equal to the current state no pods will be created 
+o In the replication controller if the desired state of the container is not equal to the current state  podswill be created
+
+# kubectl apply -f (file name)  // update changes in replication controller
+
+
+
+
+
+
+
+
