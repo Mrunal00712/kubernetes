@@ -1,0 +1,27 @@
+Namespace in Kubernetes:-
+  Namespaces are a way to organize clusters into virtual sub-clusters — they can be helpful when different teams or projects share a Kubernetes cluster. 
+  Any number of namespaces are supported within a cluster, each logically separated from others but with the ability to communicate with each other.
+  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl create ns teama
+namespace/teama created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get ns
+NAME              STATUS   AGE
+default           Active   7h48m
+kube-node-lease   Active   7h48m
+kube-public       Active   7h48m
+kube-system       Active   7h48m
+teama             Active   17s
+
+C:\Users\MRUNAL\Documents\kubernetes>notepad namespace.yml
+C:\Users\MRUNAL\Documents\kubernetes>kubectl create -f namespace.yml
+pod/mypod created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+No resources found in default namespace.
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods -n teama
+NAME    READY   STATUS              RESTARTS   AGE
+mypod   0/1     ContainerCreating   0          43s
+*******************************************************************************************************************************************************************************
