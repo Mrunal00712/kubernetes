@@ -1,3 +1,4 @@
+****************************************************************************************************************************************************************************************
 Namespace in Kubernetes:-
   Namespaces are a way to organize clusters into virtual sub-clusters — they can be helpful when different teams or projects share a Kubernetes cluster. 
   Any number of namespaces are supported within a cluster, each logically separated from others but with the ability to communicate with each other.
@@ -24,4 +25,106 @@ No resources found in default namespace.
 C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods -n teama
 NAME    READY   STATUS              RESTARTS   AGE
 mypod   0/1     ContainerCreating   0          43s
-*******************************************************************************************************************************************************************************
+*****************************************************************************************************************************************************************************
+
+Authentciation: Proving your Identitiy
+by giving password, keys
+password based authentication is only/mostly for Human being, but now any tools is loging using our behalf uses keys
+keys(private key, Acess tolen, Tokens, Certificate, Cookies)
+Whenever we run the kubectl command internally  authentication happens again & again
+The context contains the username & IP address of the cluster Kubectl view config command tells us which cluster is connected, 
+what username we are using for authentication & what key we are using 
+
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl run mypod --image=httpd --context mycloud
+error: context "mycloud" does not exist
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl context -h
+error: unknown command "context" for "kubectl"
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl config -h
+Modify kubeconfig files using subcommands like "kubectl config set current-context my-context".
+
+ The loading order follows these rules:
+
+  1.  If the --kubeconfig flag is set, then only that file is loaded. The flag may only be set once and no merging takes
+place.
+  2.  If $KUBECONFIG environment variable is set, then it is used as a list of paths (normal path delimiting rules for
+your system). These paths are merged. When a value is modified, it is modified in the file that defines the stanza. When
+a value is created, it is created in the first file that exists. If no files in the chain exist, then it creates the
+last file in the list.
+  3.  Otherwise, ${HOME}/.kube/config is used and no merging takes place.
+
+Available Commands:
+  current-context   Display the current-context
+  delete-cluster    Delete the specified cluster from the kubeconfig
+  delete-context    Delete the specified context from the kubeconfig
+  delete-user       Delete the specified user from the kubeconfig
+  get-clusters      Display clusters defined in the kubeconfig
+  get-contexts      Describe one or many contexts
+  get-users         Display users defined in the kubeconfig
+  rename-context    Rename a context from the kubeconfig file
+  set               Set an individual value in a kubeconfig file
+  set-cluster       Set a cluster entry in kubeconfig
+  set-context       Set a context entry in kubeconfig
+  set-credentials   Set a user entry in kubeconfig
+  unset             Unset an individual value in a kubeconfig file
+  use-context       Set the current-context in a kubeconfig file
+  view              Display merged kubeconfig settings or a specified kubeconfig file
+
+Usage:
+  kubectl config SUBCOMMAND [options]
+
+Use "kubectl config <command> --help" for more information about a given command.
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl config get-contexts
+CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
+*         minikube   minikube   minikube   default
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl cogig view
+error: unknown command "cogig" for "kubectl"
+
+Did you mean this?
+        config
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl congig view
+error: unknown command "congig" for "kubectl"
+
+Did you mean this?
+        config
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: C:\Users\MRUNAL\.minikube\ca.crt
+    extensions:
+    - extension:
+        last-update: Mon, 19 Feb 2024 19:56:29 IST
+        provider: minikube.sigs.k8s.io
+        version: v1.32.0
+      name: cluster_info
+    server: https://192.168.59.102:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    extensions:
+    - extension:
+        last-update: Mon, 19 Feb 2024 19:56:29 IST
+        provider: minikube.sigs.k8s.io
+        version: v1.32.0
+      name: context_info
+    namespace: default
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: C:\Users\MRUNAL\.minikube\profiles\minikube\client.crt
+    client-key: C:\Users\MRUNAL\.minikube\profiles\minikube\client.key
+
