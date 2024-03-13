@@ -81,8 +81,13 @@ o In the replication controller if the desired state of the container is not equ
 
 # kubectl apply -f (file name)  // update changes in replication controller
 
+**********************************************************************************************************************************
+problems with Replica Set
 
-
+Suppose we have 3 podsrunning and Version1 and we have to update on Version2,
+replica set will delete entire pod of version1 and launch/create pod with version2,
+by follwing this our application comes in downtime
+for solving this we come with the concept of Deployment
 
 
 
