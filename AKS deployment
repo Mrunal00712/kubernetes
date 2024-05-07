@@ -1,0 +1,61 @@
+Deploy an Azure Kubernetes Service (AKS) cluster using Azure portal
+
+first create AKS cluster from azure and run the following commands in cloudshell
+
+Requesting a Cloud Shell.Succeeded. 
+Connecting terminal...
+
+mrunal [ ~ ]$ az account set --subscription a4e4a6a2-cba6-40fa-9f16-81ac1771559b
+mrunal [ ~ ]$ az aks get-credentials --resource-group mrunal2 --name myAKScluster --overwrite-existing
+Merged "myAKScluster" as current context in /home/mrunal/.kube/config
+mrunal [ ~ ]$ ls
+clouddrive
+mrunal [ ~ ]$ ls
+clouddrive
+mrunal [ ~ ]$ vim swarm-web-deployment.yaml
+mrunal [ ~ ]$ ls
+clouddrive  swarm-web-deployment.yaml
+mrunal [ ~ ]$ cat swarm-web-deployment.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-swarm-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-swarm-web
+  template:
+    metadata:
+      labels:
+        app: my-swarm-web
+    spec:
+      containers:
+      - name: my-swarm-web
+        image: mrunal0712/swarm-web:2.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-swarm-web
+spec:
+  selector:
+    app: my-swarm-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+mrunal [ ~ ]$ kubectl apply -f swarm-web-deployment.yaml 
+deployment.apps/my-swarm-web created
+service/my-swarm-web created
+mrunal [ ~ ]$ kubectl get pods
+NAME                            READY   STATUS    RESTARTS   AGE
+my-swarm-web-5cc68b665f-2xwkt   1/1     Running   0          8s
+mrunal [ ~ ]$ kubectl get svc 
+NAME           TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)        AGE
+kubernetes     ClusterIP      10.0.0.1       <none>           443/TCP        30m
+my-swarm-web   LoadBalancer   10.0.135.139   52.172.100.147   80:30709/TCP   40s
