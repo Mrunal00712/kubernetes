@@ -23,8 +23,11 @@ kubectl.exe delete pods myweb
 kubectl.exe create -f first_pod.yml
 kubectl.exe get deploy
 kubectl get pods -o wide
+minikube ssh
+lubectl get pods -w // means watich pod in realtime
 kubectl describe pods
 kubectl.exe delete pods --all
+referenche == kubectl cheat sheet
 docs= kubrnetes.io/docs/concept/workloads/pods/
 kubernetes not lkaunch the conainer irectly first they aunch the POD inside POD they launch the container
 single container pod X multi container pod 
