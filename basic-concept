@@ -22,6 +22,7 @@ kubectl.exe get pods
 kubectl.exe delete pods myweb
 kubectl.exe create -f first_pod.yml
 kubectl.exe get deploy
+kubectl get pods -o wide
 kubectl describe pods
 kubectl.exe delete pods --all
 docs= kubrnetes.io/docs/concept/workloads/pods/
