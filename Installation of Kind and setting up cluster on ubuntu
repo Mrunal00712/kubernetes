@@ -1,0 +1,42 @@
+    1  # apt-get update
+    2  # apt-get install docker
+    3  # systemctl start docker
+    4  # docker --version
+    5  # snap install docker
+    6  # apt  install docker.io
+    7  # docker --version
+    8  # systemctl start docker
+    9  # docker ps
+10 
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-arm64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+
+
+   11  # snap install kubectl --classic
+   12  # kubectl version
+
+setting up single node cluster
+   19  kind create cluster
+   21  kind get clusters
+   22  kubectl get no
+
+setting up multinode cluster
+   24  vim kind-config
+   25  # cat kind-config 
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+- role: worker 
+   26  kind create cluster --name=multi-node-cluster --config=kind-config
+   27  kubectl get no
+
+kind get cluster
+kind delete cluster --name=(cluster name)
+
+
