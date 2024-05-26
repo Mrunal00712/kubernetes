@@ -1,3 +1,10 @@
+Why kubernetes over docker?
+=> becaus its solving all the major 100's of problem that docker does not solve
+  - Auto healing(kubernetes bydeafult has a cluster nature, one pod fails it automatically launch the container in different caontainer/pod)
+  - Auto scalling
+  - enterfrise support(provide extra security, firewall)
+  - Hosts(multi node hosts)
+
 kubernetes can manage 100 of things
   - monitoring conainer
   - handling the 100s of request at a time
@@ -24,9 +31,10 @@ kubectl.exe create -f first_pod.yml
 kubectl.exe get deploy
 kubectl get pods -o wide
 minikube ssh
-lubectl get pods -w // means watich pod in realtime
+kubectl get pods -w // means watch pod in realtime
 kubectl describe pods
 kubectl.exe delete pods --all
+
 referenche == kubectl cheat sheet
 docs= kubrnetes.io/docs/concept/workloads/pods/
 kubernetes not lkaunch the conainer irectly first they aunch the POD inside POD they launch the container
