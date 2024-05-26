@@ -114,6 +114,8 @@ replica set will delete entire pod of version1 and launch/create pod with versio
 by follwing this our application comes in downtime
 for solving this we come with the concept of Deployment
 
+and if we want to move with older versions means roll back then it is not possible with replicaaset
+
 
 
 
