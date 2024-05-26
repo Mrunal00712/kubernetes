@@ -40,5 +40,19 @@ docs= kubrnetes.io/docs/concept/workloads/pods/
 kubernetes not lkaunch the conainer irectly first they aunch the POD inside POD they launch the container
 single container pod X multi container pod 
 
+***********************************
+there are two ways of launching pods
+1. Declerative (It is file based approch, we create yaml file & from that create pod)
+2. Imperative (we use CLI to launch pod)
 
-
+***************creating first pod******************
+apiVersion: v1
+kind: Pod  //means what we are doing here we are launching just pod
+metadata:    //info. about pod 
+  name: nginx
+spec:        //more container related info. 
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
