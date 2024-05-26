@@ -39,6 +39,62 @@ when you want to launch the newer version from v1 to v2 this concept is called a
 Deployment only knows to to use the strategy they dont know the service, pod etc.. 
 
 
+**************************************************************************************
+1. Create a Deployment name my-deploy with image nginx.
+2. Scale my-deploy to 3 replicas.
+3. Replace the image in my-deploy nginx to nginx:alpine.
+4. Scale down to 2 replicas.
+5. Rollback to previous version of my-deploy.
+6. Delete Deployment, Replica Set and pod created by my-deploy
+
+==>
+1 ans*****
+C:\Users\MRUNAL\Documents\kubernetes>kubectl create deployment mydeploy --image=nginx
+deployment.apps/mydeploy created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubctl get all
+'kubctl' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get all
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/mydeploy-5588d64c7d-9sx6h   1/1     Running   0          31s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   97d
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/mydeploy   1/1     1            1           31s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/mydeploy-5588d64c7d   1         1         1       31s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get deploy
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+mydeploy   1/1     1            1           72s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get deploy -o wide
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES   SELECTOR
+mydeploy   1/1     1            1           80s   nginx        nginx    app=mydeploy
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl rollout history deploy mydeploy
+deployment.apps/mydeploy
+REVISION  CHANGE-CAUSE
+1         <none>
+
+
+2. ans*****
+C:\Users\MRUNAL\Documents\kubernetes>kubectl scale deploy mydeploy --replicas=3
+deployment.apps/mydeploy scaled
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pod
+NAME                        READY   STATUS    RESTARTS   AGE
+mydeploy-5588d64c7d-46msr   1/1     Running   0          19s
+mydeploy-5588d64c7d-9sx6h   1/1     Running   0          4m25s
+mydeploy-5588d64c7d-cxjxs   1/1     Running   0          19s
+
+3. ans*****
+
 
 
 
