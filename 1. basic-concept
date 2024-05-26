@@ -43,6 +43,9 @@ single container pod X multi container pod
 
 
 
+************************************************************************
+Kubernetes, often abbreviated as K8s, is an open-source container orchestration platform that automates the deployment, 
+scaling, and management of containerized applications. It provides a framework to efficiently manage the complexities 
+of deploying and running applications in containers across a cluster of machines.
 
 
-    
