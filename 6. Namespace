@@ -6,3 +6,40 @@ this is not recommended way we deploy our application in pod & in default space 
 for solving this problem we have namespace,
 namespace can be understand like that we are in our home and nobody from outside can interfeare ,
 namespace is an isolated space where we can create our pod , workloads and no usere can see our pod, workload without our permission
+
+
+Types of namespace 
+when we create a cluster k8s provide us bydeafult four namespace (1 Dafault)(2 kube-system)(3 kube-public)(4 kube-node-lease)
+
+1. Dafault Namespace
+-  open for all
+-  Anybody can see and change
+-  Not recommended
+
+2. kube-system Namespace
+- most important namespace, The kube-system Namespace in Kubernetes contains essential system-level components and services, 
+such as kube-apiserver, etcd, kube-controller-manager, kube-scheduler, and kube-proxy. It is a special Namespace that is created 
+by default when a cluster is initialized and should not be modified or deleted without careful consideration. Add-ons such as 
+Kubernetes dashboard, DNS service, and monitoring tools may also be present in this Namespace. 
+The kube-system Namespace provides a dedicated space for the core components of the Kubernetes system, ensuring their proper 
+functioning and separation from other workloads in the cluster.
+
+all the control plane component as a pod they are running
+
+3. kube-public Namespace
+-  Created automatically
+-  Readable by all users
+-  mostly reserved for cluster usage
+-  in case that some resource should be visible and readable publicaly throughout the whole cluster
+
+4. kube-node-lease Namespace
+-  This namespace for the lease objects associated with each node which improves the performance of the node heartbeats as the cluster scale.
+-  To deploy some monitoring and security plugins then we use this namespace.
+*********************************
+1. Create a namespace with name my-first-ns.
+2. Create a pod with name red with image nginx in above namespace
+3. Count all pods in all namespaces.
+4. Permanently switch the namespace to my-first-ns.
+
+1st ans**********
+
