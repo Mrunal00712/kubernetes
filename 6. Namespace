@@ -41,5 +41,36 @@ all the control plane component as a pod they are running
 3. Count all pods in all namespaces.
 4. Permanently switch the namespace to my-first-ns.
 
-1st ans**********
+ans**********
+C:\Users\MRUNAL\Documents\kubernetes>kubectl create namespace my-first-ns
+namespace/my-first-ns created
 
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get ns
+NAME              STATUS   AGE
+default           Active   98d
+kube-node-lease   Active   98d
+kube-public       Active   98d
+kube-system       Active   98d
+my-first-ns       Active   4s
+teama             Active   97d
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl run --name=red --image=nginx --namespace=my-first-ns
+error: unknown flag: --name
+See 'kubectl run --help' for usage.
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl run red --image=nginx --namespace=my-first-ns
+pod/red created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get po
+No resources found in default namespace.
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods --namespace=my-first-ns
+NAME   READY   STATUS    RESTARTS   AGE
+red    1/1     Running   0          46s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods -n my-first-ns
+NAME   READY   STATUS    RESTARTS   AGE
+red    1/1     Running   0          98s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl config set-context --current --namespace=my-first-ns
+Context "minikube" modified.
