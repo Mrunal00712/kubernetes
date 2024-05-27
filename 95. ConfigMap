@@ -1,0 +1,99 @@
+What are Kubernetes ConfigMaps?
+In Kubernetes, Configmap is an API object that is mainly used to store non-confidential data. The data that is stored 
+in ConfigMap is stored as key-value pairs. ConfigMaps are configuration files that may be used by pods as command-line
+arguments, environment variables, or even as configuration files on a disc. This feature allows us to decouple environment-specific 
+configuration from our container images, after this is done, our applications are easily portable. The thing to be noted here is 
+that ConfigMap does not provide any sort of secrecy or encryption, so it is advised to store non-confidential data only We can use
+secrets to store confidential data. 
+
+A ConfigMap may be used to set configuration data independently of the application code. Imagine that we are developing an 
+application that you can run on your computer and in the cloud. We create the code to check the DATABASE HOST environment 
+variable. We can set the variable to localhost locally, but in the cloud, we set it to a Kubernetes service. A configMap is
+not designed to store large amounts of data in it. The data that is stored in ConfigMap cannot be more than 1 MB. If we need
+to store more data than that, then we can use volume instead of ConfigMaps.
+
+********************************************************************************************************
+pratical 
+/configmap-1.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-1
+spec:
+  containers:
+  - name: demo-container
+    image: nginx
+    envFrom:
+    - configMapRef:
+       name: configmap-1
+
+/configmap-2.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-2
+spec:
+  containers:
+  - name: demo-container
+    image: nginx
+    env:
+    - name: COLOR
+      valueFrom:   
+        configMapKeyRef:   
+          name: configmap-2
+          key: color
+
+/configmap-3.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-3
+spec:
+  containers:
+  - name: demo-container
+    image: nginx
+    volumeMounts:
+      - name: config
+        mountPath: /etc/config
+  volumes:
+  - name: config
+    configMap:
+      name: configmap-3
+
+will learn how to use ConfigMaps to manage configuration data in your Kubernetes cluster.
+
+Prerequisites
+Before starting with this tutorial, you should have a basic understanding of Kubernetes and how to create a pod,
+service, and deployment. You should also have the kubectl command-line tool installed and configured to interact with your Kubernetes cluster.
+
+Commands used in the video
+To create a ConfigMap from a literal value, use the following command:
+# kubectl create configmap configmap-1 --from-literal=name=first-configmap
+
+To create a ConfigMap from multiple literal values, use the following command:
+# kubectl create configmap configmap-2 --from-literal=name=second-configmap --from-literal=color=blue
+
+To create a ConfigMap from a file, use the following command:
+# kubectl create configmap configmap-3 --from-file=data-file
+
+To apply the YAML files provided in this repository, use the following command:
+# kubectl apply -f <file-name.yaml>
+
+To see the pods running in your Kubernetes cluster, use the following command:
+# kubectl get pods
+
+To see the ConfigMaps created in your Kubernetes cluster, use the following command:
+# kubectl get cm
+
+To see the environment variables set in a running pod, use the following command:
+# kubectl exec -it <pod-name> -- printenv
+
+To go inside a running pod, use the following command:
+# kubectl exec -it <pod-name> -- bash
+
+Summary
+In this tutorial, you learned how to use ConfigMaps to manage configuration data in your Kubernetes cluster. 
+ConfigMaps can be used to store configuration data as key-value pairs or as files. You can then use environment
+variables or volume mounts to make this data available to your applications running in Kubernetes.
+
+
