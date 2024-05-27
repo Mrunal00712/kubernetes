@@ -1,0 +1,54 @@
+What are Environment Variables?
+Environment variables are dynamic values that are part of the operating system’s environment and can be accessed by various 
+programs running on the system. They are used to provide configuration settings, system information and other important 
+parameters to software applications.
+
+Environment variables are typically defined by the operating system or set by the user. They are stored in a special
+data structure maintained by the operating system called the environment block. Each variable has a name and a 
+corresponding value, which can be retrieved by programs to access the information they represent.
+
+The main purpose of environment variables is to provide a standardized way for programs to obtain certain 
+information without requiring hard-coded values within the code itself. They enable flexibility and portability
+of software applications by allowing them to adapt to different environments without the need for recompilation or modification.
+
+For example, some commonly used environment variables include:
+
+PATH: Specifies the directories where the operating system should look for executable files.
+HOME: Indicates the user’s home directory.
+TEMP or TMP: Specifies the directory where temporary files should be stored.
+USER or USERNAME: Represents the username of the currently logged-in user.
+OS: Indicates the name of the operating system.
+
+Programs can read the values of these environment variables during runtime. They can also modify or 
+create their own environment variables to store specific information required by the application.
+
+Environment variables are particularly useful in scripting and automation, as they provide a convenient way
+to pass parameters and configuration settings to scripts without modifying the script itself.
+
+
+How to manage Environment Variables in Kubernetes?
+Managing environment variables effectively in Kubernetes can greatly enhance the management of your applications. 
+Here are some practices to manage environment variables within Kubernetes :
+
+Use ConfigMaps and Secrets: Leverage ConfigMaps for non-sensitive configuration data and Secrets for sensitive 
+information like credentials or API keys. Separating environment variables from the application configuration
+enables easier updates and reduces the risk of exposing sensitive data.
+
+Centralize Configuration: Instead of hardcoding Kubernetes variables in each application’s deployment configuration,
+centralize the configuration in ConfigMaps or Secrets. This centralization simplifies management, promotes consistency
+and enables easier updates across multiple deployments.
+
+Avoid Sensitive Data in Plain Text: When using Secrets, avoid storing sensitive information as plain text. Instead, 
+base64 encode the values to obfuscate them. While base64 encoding is not encryption, it provides a basic level of protection.
+For stronger security, consider using tools like Kubernetes Secrets Store CSI Driver or external secret management systems.
+
+Use Descriptive Names: Choose meaningful and descriptive names for your environment variables to ensure clarity and maintainability.
+Clear naming conventions make it easier for developers, operators and administrators to understand the purpose and usage of Kubernetes variables.
+
+Version Control Configurations: Store your Kubernetes configurations, including environment variables, in version control systems
+like Git. This practice enables versioning, change tracking and collaboration. It ensures that environment variable changes are 
+properly documented and reviewed.
+
+
+
+
