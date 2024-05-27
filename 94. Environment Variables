@@ -210,5 +210,65 @@ Conclusion
 By the end of this video, you should have a better understanding of how to expose pod information to containers in Kubernetes.
 
 
+*******************************************************************
+Praticle Exposing Pod Information to Containers Through help of volume Files
 
+/volume.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: downwardapi-volume
+  labels:
+    dapi: volume
+    cluster: test-cluster
+  annotations:
+    color: red
+spec:
+  containers:
+    - name: client-container
+      image: registry.k8s.io/busybox
+      command: ["sh", "-c"]
+      args:
+      - while true; do
+          if [[ -e /etc/podinfo/labels ]]; then
+            echo -en '\n\n'; cat /etc/podinfo/labels; fi;
+          if [[ -e /etc/podinfo/annotations ]]; then
+            echo -en '\n\n'; cat /etc/podinfo/annotations; fi;
+          sleep 5;
+        done;
+      volumeMounts:
+        - name: podlevelinfo
+          mountPath: /etc/podlevelinfo
+  volumes:
+    - name: podlevelinfo
+      downwardAPI:
+        items:
+          - path: "labels"
+            fieldRef:
+              fieldPath: metadata.labels
+          - path: "annotations"
+            fieldRef:
+              fieldPath: metadata.annotations
+
+
+
+Prerequisites
+Before starting with this tutorial, you should have a basic understanding of Kubernetes and how to create a pod,
+service, and deployment. You should also have the kubectl command-line tool installed and configured to interact with your Kubernetes cluster.
+
+Commands used in the video
+To apply the YAML files provided in this repository, use the following command:
+# kubectl apply -f volume.yaml
+
+To see the pods running in your Kubernetes cluster, use the following command:
+# kubectl get pods
+
+To see the volume files created by the downwardapi-volume pod, use the following command:
+# kubectl exec -it downwardapi-volume -- sh
+
+Summary
+In this tutorial, you learned how to expose pod information to containers through files in Kubernetes. 
+By using the downward API and a volume mount, you can expose various metadata about the pod to the 
+containers running within it. This can be useful in many scenarios, such as passing environment variables 
+or providing container-specific configuration files.
 
