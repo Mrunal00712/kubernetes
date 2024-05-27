@@ -116,7 +116,114 @@ for solving this we come with the concept of Deployment
 
 and if we want to move with older versions means roll back then it is not possible with replicaaset
 
+*****************************************************************************************************************************
+*****************************************************************************************************************************
+***********************************************************************************************************
+***********************************************************************************************************
+### Node Selector in Kubernetes
 
+Node Selectors in Kubernetes allow you to constrain pods to be scheduled on nodes with specific labels. This is useful for ensuring that certain workloads are only run on appropriate nodes, optimizing resource usage, and maintaining organizational policies.
+
+### Practical Questions and Answers
+
+#### Question 1: Label the node with key=capacity and value=low
+**Solution**: Use the following command to label the node:
+```sh
+kubectl label nodes <node-name> capacity=low
+```
+
+#### Question 2: Create a pod and use NodeSelector to schedule it onto the labeled node
+**Solution**:
+1. Create a YAML file (`pod.yaml`) with the following content:
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: my-pod
+    spec:
+      containers:
+      - name: my-container
+        image: my-image
+      nodeSelector:
+        capacity: low
+    ```
+2. Apply the YAML file using the following command:
+    ```sh
+    kubectl apply -f pod.yaml
+    ```
+
+### Additional Commands
+
+#### Verify Node Labels
+To verify the node labels, use the following command:
+```sh
+kubectl get nodes --show-labels
+```
+This command displays a list of nodes along with their labels.
+
+### Additional Practical Questions
+
+#### Question 1: Label all nodes in your Kubernetes cluster with a key-value pair "environment=production".
+**Solution**: Use the following command to label all nodes:
+```sh
+kubectl label nodes --all environment=production
+```
+
+#### Question 2: How can you remove a label from a node?
+**Solution**: Use the `kubectl label` command with the key and node name, followed by a `-` to indicate removal. For example:
+```sh
+kubectl label node <node-name> capacity-
+```
+
+### Summary
+
+Node Selectors in Kubernetes provide a straightforward way to ensure that pods are scheduled on nodes with specific labels. This can help optimize resource utilization and enforce organizational policies.
+
+### Complete Example
+
+#### Step-by-Step Guide
+
+1. **Label a Node**:
+    ```sh
+    kubectl label nodes node1 capacity=low
+    ```
+    This command labels the node named `node1` with `capacity=low`.
+
+2. **Create a Pod with NodeSelector**:
+    - Create a file named `pod.yaml` with the following content:
+        ```yaml
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          name: my-pod
+        spec:
+          containers:
+          - name: my-container
+            image: nginx
+          nodeSelector:
+            capacity: low
+        ```
+    - Apply the configuration:
+        ```sh
+        kubectl apply -f pod.yaml
+        ```
+
+3. **Verify the Node Labels**:
+    ```sh
+    kubectl get nodes --show-labels
+    ```
+
+4. **Label All Nodes in the Cluster**:
+    ```sh
+    kubectl label nodes --all environment=production
+    ```
+
+5. **Remove a Label from a Node**:
+    ```sh
+    kubectl label node node1 capacity-
+    ```
+
+By following these steps, you can effectively use node selectors and labels to control pod scheduling in your Kubernetes cluster.
 
 
 
