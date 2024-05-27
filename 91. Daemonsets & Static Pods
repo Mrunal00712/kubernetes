@@ -179,3 +179,108 @@ kubectl delete daemonset fluentd-daemonset
     ```
 
 By following this guide, you can effectively manage DaemonSets in your Kubernetes cluster, ensuring system-level applications are running across all necessary nodes.
+
+******************************************************************************************************************************
+******************************************************************************************************************************
+******************************************************************************************************************************
+
+
+### Static Pods in Kubernetes
+
+Static pods are managed directly by the kubelet daemon on a specific node, without the intervention of control plane components like the API server. They are defined by creating a pod manifest in a specific directory on the node, typically `/etc/kubernetes/manifests/`.
+
+This README provides instructions on creating and managing static pods in Kubernetes.
+
+### Creating a Static Pod
+
+To create a static pod named "static-web" using the Nginx image, follow these steps:
+
+1. **Create the Static Pod YAML**
+
+    Create a YAML file named `static-web.yaml` with the following content:
+
+    ```yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: static-web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+    ```
+
+2. **Verify the Successful Creation of the Static Pod**
+
+    You can apply the pod definition using `kubectl apply` to ensure the YAML is correct, though it won't directly create a static pod this way:
+    
+    ```sh
+    kubectl apply -f static-web.yaml
+    ```
+
+    This command is optional and used here just to verify the YAML format.
+
+3. **Copy the Pod YAML to the Static Pod Directory**
+
+    To create the static pod, you need to copy the `static-web.yaml` file to the directory where the kubelet looks for static pod manifests. Typically, this directory is `/etc/kubernetes/manifests/`.
+
+    Use the following command to copy the file:
+
+    ```sh
+    sudo cp static-web.yaml /etc/kubernetes/manifests/
+    ```
+
+4. **Ensure the Pod is Started by Kubelet**
+
+    To ensure that the pod is started by the kubelet, monitor its status using `kubectl`:
+
+    ```sh
+    kubectl get pods
+    ```
+
+    The pod's status should change to "Running," indicating that the kubelet has successfully started the static pod.
+
+### Example Commands
+
+Here's a step-by-step example of the commands you would run:
+
+1. **Create the YAML file:**
+
+    ```sh
+    echo "
+    apiVersion: v1
+    kind: Pod
+    metadata:
+      name: static-web
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+    " > static-web.yaml
+    ```
+
+2. **Verify the YAML (optional):**
+
+    ```sh
+    kubectl apply -f static-web.yaml
+    ```
+
+3. **Copy the YAML to the manifests directory:**
+
+    ```sh
+    sudo cp static-web.yaml /etc/kubernetes/manifests/
+    ```
+
+4. **Monitor the pod status:**
+
+    ```sh
+    kubectl get pods
+    ```
+
+### Additional Information
+
+- **Static Pod Location**: By default, the kubelet checks the `/etc/kubernetes/manifests/` directory for pod definitions, but this path can be configured via the kubelet's `--pod-manifest-path` flag.
+  
+- **Static Pod Management**: Static pods are not managed via the Kubernetes API server. Instead, they are directly managed by the kubelet, which ensures they are always running. If a static pod is deleted, the kubelet recreates it from the manifest file.
+
+By following these steps, you can create and manage static pods in your Kubernetes cluster effectively.
