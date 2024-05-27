@@ -32,3 +32,6 @@ spec:
 Que 2. creating a pod using imperative approach
 soln:- kubectl run pod-2 --image=alpine -l name=pod-2 --restart=Never
 
+***********************
+
+
