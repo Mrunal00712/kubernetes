@@ -1,0 +1,8 @@
+When we create a pod it create bydefault in defauly space,
+default space is public space, where any user can see your pod, can change inside your application, can delete your pod 
+
+this is not recommended way we deploy our application in pod & in default space thia is problem
+
+for solving this problem we have namespace,
+namespace can be understand like that we are in our home and nobody from outside can interfeare ,
+namespace is an isolated space where we can create our pod , workloads and no usere can see our pod, workload without our permission
