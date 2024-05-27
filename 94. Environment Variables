@@ -106,5 +106,109 @@ By using environment variables in Kubernetes, you can easily configure your appl
 modify your application code. This makes it easier to manage and update your application, and allows you 
 to quickly and easily scale your application as needed.
 
+*****************************************************************************************************************
+practile 2  Exposing Pod Information to Containers
+we will learn how to expose pod information to containers in Kubernetes. We will look at different 
+methods of passing information from the pod to the container via environment variables.
+
+fieldref.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-envars
+spec:
+  containers:
+    - name: test-container
+      image: registry.k8s.io/busybox
+      command: [ "sh", "-c"]
+      args:
+      - while true; do
+          echo -en '\n';
+          printenv MY_NODE_NAME MY_POD_NAME MY_POD_NAMESPACE;
+          printenv MY_POD_IP MY_POD_SERVICE_ACCOUNT;
+          sleep 10;
+        done;
+      env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+  restartPolicy: Never
+***
+resourcefieldref.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-envars-resourcefieldref
+spec:
+  containers:
+    - name: test-container
+      image: registry.k8s.io/busybox:1.24
+      command: [ "sh", "-c"]
+      args:
+      - while true; do
+          echo -en '\n';
+          printenv MY_CPU_REQUEST MY_CPU_LIMIT;
+          printenv MY_MEM_REQUEST MY_MEM_LIMIT;
+          sleep 10;
+        done;
+      resources:
+        requests:
+          memory: "32Mi"
+          cpu: "125m"
+        limits:
+          memory: "64Mi"
+          cpu: "250m"
+      env:
+        - name: MY_CPU_REQUEST
+          valueFrom:
+            resourceFieldRef:
+              containerName: test-container
+              resource: requests.cpu
+        - name: MY_CPU_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              containerName: test-container
+              resource: limits.cpu
+        - name: MY_MEM_REQUEST
+          valueFrom:
+            resourceFieldRef:
+              containerName: test-container
+              resource: requests.memory
+        - name: MY_MEM_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              containerName: test-container
+              resource: limits.memory
+  restartPolicy: Never
+
+To apply YAML files:
+# kubectl apply -f <file-name>
+
+To see pods:
+# kubectl get pods
+
+To check logs of a pod:
+# kubectl logs <pod-name>
+
+To print environment variables of a pod:
+# kubectl exec <pod-name> -- printenv
+
+Conclusion
+By the end of this video, you should have a better understanding of how to expose pod information to containers in Kubernetes.
+
+
 
 
