@@ -74,3 +74,61 @@ red    1/1     Running   0          98s
 
 C:\Users\MRUNAL\Documents\kubernetes>kubectl config set-context --current --namespace=my-first-ns
 Context "minikube" modified.
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl run green --image=nginx
+pod/green created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+green   1/1     Running   0          8s
+red     1/1     Running   0          5m21s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods -n my-first-ns
+NAME    READY   STATUS    RESTARTS   AGE
+green   1/1     Running   0          24s
+red     1/1     Running   0          5m37s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get ns
+NAME              STATUS   AGE
+default           Active   98d
+kube-node-lease   Active   98d
+kube-public       Active   98d
+kube-system       Active   98d
+my-first-ns       Active   8m36s
+teama             Active   97d
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl delete namespace my-first-ns
+namespace "my-first-ns" deleted
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get ns
+NAME              STATUS   AGE
+default           Active   98d
+kube-node-lease   Active   98d
+kube-public       Active   98d
+kube-system       Active   98d
+teama             Active   97d
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+No resources found in my-first-ns namespace.
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl run green --image=nginx
+Error from server (NotFound): namespaces "my-first-ns" not found
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl config set-context --current --namespace=default
+Context "minikube" modified.
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl run green --image=nginx
+pod/green created
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get pods
+NAME    READY   STATUS              RESTARTS   AGE
+green   0/1     ContainerCreating   0          3s
+
+C:\Users\MRUNAL\Documents\kubernetes>kubectl get ns
+NAME              STATUS   AGE
+default           Active   98d
+kube-node-lease   Active   98d
+kube-public       Active   98d
+kube-system       Active   98d
+teama             Active   97d
+
