@@ -1,0 +1,181 @@
+### DaemonSets in Kubernetes
+
+DaemonSets in Kubernetes ensure that a copy of a specific pod runs on all (or a specified subset) of nodes in a cluster. 
+As nodes are added to the cluster, pods are added to them. When nodes are removed from the cluster, those pods are garbage collected. 
+Deleting a DaemonSet will clean up the pods it created.
+
+**Example**: `kube-proxy`
+
+**Use-Case**: Monitoring solutions, logging agents, and other system-level components.
+
+### Detailed Guide on DaemonSets
+
+This README provides an overview of DaemonSets in Kubernetes, including how to create, update, rollback, view, and delete DaemonSets.
+
+#### Creating a DaemonSet
+
+To create a DaemonSet in Kubernetes, you can use the following YAML file:
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      containers:
+      - name: fluentd
+        image: fluent/fluentd:latest
+```
+
+Apply the above file using the following command:
+```sh
+kubectl apply -f fluentd-daemonset.yaml
+```
+
+#### Viewing Running DaemonSets
+
+To view all the running DaemonSets, use the following command:
+```sh
+kubectl get daemonsets
+```
+
+#### Updating a DaemonSet
+
+To update a DaemonSet, modify the YAML file. For example, update the `fluentd-daemonset.yaml` file to use a different image version:
+
+```yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd-daemonset
+spec:
+  selector:
+    matchLabels:
+      app: fluentd
+  template:
+    metadata:
+      labels:
+        app: fluentd
+    spec:
+      containers:
+      - name: fluentd
+        image: fluent/fluentd:v1.2.3
+```
+
+Apply the updated YAML file using:
+```sh
+kubectl apply -f fluentd-daemonset.yaml
+```
+
+To view the updated DaemonSet's pods, use:
+```sh
+kubectl get pods -l app=fluentd
+```
+
+#### Checking Logs Collected by Fluentd
+
+Once you have the pod name, you can view the logs by running the following command:
+```sh
+kubectl logs <pod_name>
+```
+
+#### Rolling Update a DaemonSet
+
+To rollback the DaemonSet to a previous version, use the following command:
+```sh
+kubectl rollout undo daemonset fluentd-daemonset
+```
+
+#### Deleting a DaemonSet
+
+To delete the DaemonSet named `fluentd-daemonset`, use the following command:
+```sh
+kubectl delete daemonset fluentd-daemonset
+```
+
+### Practical Example and Commands
+
+1. **Create a DaemonSet**:
+    - Create a file named `fluentd-daemonset.yaml` with the following content:
+        ```yaml
+        apiVersion: apps/v1
+        kind: DaemonSet
+        metadata:
+          name: fluentd-daemonset
+        spec:
+          selector:
+            matchLabels:
+              app: fluentd
+          template:
+            metadata:
+              labels:
+                app: fluentd
+            spec:
+              containers:
+              - name: fluentd
+                image: fluent/fluentd:latest
+        ```
+    - Apply the configuration:
+        ```sh
+        kubectl apply -f fluentd-daemonset.yaml
+        ```
+
+2. **View Running DaemonSets**:
+    ```sh
+    kubectl get daemonsets
+    ```
+
+3. **Update a DaemonSet**:
+    - Modify the `fluentd-daemonset.yaml` file to update the image:
+        ```yaml
+        apiVersion: apps/v1
+        kind: DaemonSet
+        metadata:
+          name: fluentd-daemonset
+        spec:
+          selector:
+            matchLabels:
+              app: fluentd
+          template:
+            metadata:
+              labels:
+                app: fluentd
+            spec:
+              containers:
+              - name: fluentd
+                image: fluent/fluentd:v1.2.3
+        ```
+    - Apply the updated configuration:
+        ```sh
+        kubectl apply -f fluentd-daemonset.yaml
+        ```
+
+4. **View Updated DaemonSet's Pods**:
+    ```sh
+    kubectl get pods -l app=fluentd
+    ```
+
+5. **Check Logs Collected by Fluentd**:
+    ```sh
+    kubectl logs <pod_name>
+    ```
+
+6. **Rolling Update a DaemonSet**:
+    ```sh
+    kubectl rollout undo daemonset fluentd-daemonset
+    ```
+
+7. **Delete a DaemonSet**:
+    ```sh
+    kubectl delete daemonset fluentd-daemonset
+    ```
+
+By following this guide, you can effectively manage DaemonSets in your Kubernetes cluster, ensuring system-level applications are running across all necessary nodes.
