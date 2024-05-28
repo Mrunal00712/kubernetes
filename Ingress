@@ -1,0 +1,14 @@
+docs = https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+
+Ingress is a Kubernetes API object that is used to expose HTTP and HTTPS routes from outside the cluster to services
+inside the cluster. It provides a single entry point into a cluster hence making it simpler to manage applications and troubleshoot routing issues.
+
+Architecture of Kubernetes Ingress
+Kubernetes Ingress acts like a traffic controller for managing the income traffic to the Kubernetes cluster. 
+It manages the external access to the services within the kubernetes. The following are its internal concepts and terminologies:
+
+Routing: Kubernetes Ingress defines the rules in the Routing table for external HTTP and HTTPS traffic to the inside kubernetes cluster services based on the hostname and paths.
+Load Balacing: Load Balancing facilitates in distributing the income traffic to multiple backend servers providing scalability and reliability to the cluster.
+TLS Termination: Ingress handles the TLS/SSL termination for providing a secured communication between the clients and services.
+Path-Based Routing: In Routing Table we can define the rules based on the URL paths also. With this the traffic will be distributed to backend servers based on the paths accordingly.
+Virtual Hosts: Ingress facilitates virtual hosting i.e., hosting multiple domains on the same cluster and directs the traffic to different services based on the domain name.
