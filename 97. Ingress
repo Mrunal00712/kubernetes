@@ -1,0 +1,45 @@
+docs = https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+
+Ingress is a Kubernetes API object that is used to expose HTTP and HTTPS routes from outside the cluster to services
+inside the cluster. It provides a single entry point into a cluster hence making it simpler to manage applications and troubleshoot routing issues.
+
+Architecture of Kubernetes Ingress
+Kubernetes Ingress acts like a traffic controller for managing the income traffic to the Kubernetes cluster. 
+It manages the external access to the services within the kubernetes. The following are its internal concepts and terminologies:
+
+Routing: Kubernetes Ingress defines the rules in the Routing table for external HTTP and HTTPS traffic to the inside kubernetes cluster services based on the hostname and paths.
+Load Balacing: Load Balancing facilitates in distributing the income traffic to multiple backend servers providing scalability and reliability to the cluster.
+TLS Termination: Ingress handles the TLS/SSL termination for providing a secured communication between the clients and services.
+Path-Based Routing: In Routing Table we can define the rules based on the URL paths also. With this the traffic will be distributed to backend servers based on the paths accordingly.
+Virtual Hosts: Ingress facilitates virtual hosting i.e., hosting multiple domains on the same cluster and directs the traffic to different services based on the domain name.
+
+
+Kubernetes Ingress Resources
+In Kubernetes, an Ingress is an API object that manages the external access to the services within the kubernetes cluster.
+It acts an abstraction layer for routing traffic from outside the cluster to services inside the cluster. The following are its main concepts and terminologies:
+
+Routing Rules: Ingress facilitates you to define the rules for routing HTTP and HTTPS traffic based on the hostnmes or paths to different services in your cluster.
+Load Balancing: It provides the load balancing capabilities, distributing the incoming traffic across multiple pods or services.
+TLS Termination: Ingress can also able to handle the SSL/TLS termination by allowing you to encrypt the traffic from outside the cluster to your services.
+Reverse Proxy: It functions as a Reverse proxy, forwarding the requests from the clients to appropriate services based on the defined rules.
+
+What is Ingress Controller?
+An Ingress Controller is a Kubernetes Component that is responsible for evaluation and processing of Ingress routes. 
+An Ingress Controller acts as a Reverse Proxy and Load Balancer. An example of an Ingress Controller is Kubernetes 
+Nginx Ingress Controller which is an Ingress Controller by Kubernetes.
+
+In order to make the ingress routing rules to work, we need an implementation for Ingress and that implementation 
+is called Ingress Controller. Therefore, before configuring Ingress to a Cluster, we would first have to install 
+an Ingress Controller which is basically another Pod or set of Pods that run on your Node in your Kubernetes Cluster
+and is responsible for evaluation and processing of Ingress routes. The function of ingress controller is to evaluate
+all the rules that you have defined in your Cluster and manage all the redirections.
+
+Kubernetes Ingress Controllers List
+Kubernetes controller is essential for managing the inbound traffic to the kubernetes cluster. 
+The following are the some of the widely used kubernetes Ingress Controllers:
+
+Nginx Ingress Controller: It is the one of the popular option for kubernetes. It configures the NGINX to route traffic to kubernetes services.
+Traefik: It is a modern HTTP reverse proxy and load balancer that is made for microservices. It’s known for its simplicity and dynamic configuration.
+HAProxy Ingress: It utilizes the HAProxy as its uderlying proxy for handling incoming traffic. It is highly configurable and suitable for complex routing requirements.
+Contour: It is build on top of Envoy proxy. It is designed to work seamlessly with kubernetes offering features like HTTP/2 and TLS Termination.
+Istio: Istio is a primarly a mesh service and can also functions as ingress controller offering effective traffic management capabilities, security features and observability.
