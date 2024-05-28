@@ -2,6 +2,8 @@ docs = https://kubernetes.io/docs/concepts/services-networking/ingress-controlle
 
 Ingress is a Kubernetes API object that is used to expose HTTP and HTTPS routes from outside the cluster to services
 inside the cluster. It provides a single entry point into a cluster hence making it simpler to manage applications and troubleshoot routing issues.
+path based and host based routing done by the ingress.
+load balancing and ssl termination.
 
 Architecture of Kubernetes Ingress
 Kubernetes Ingress acts like a traffic controller for managing the income traffic to the Kubernetes cluster. 
@@ -43,3 +45,6 @@ Traefik: It is a modern HTTP reverse proxy and load balancer that is made for mi
 HAProxy Ingress: It utilizes the HAProxy as its uderlying proxy for handling incoming traffic. It is highly configurable and suitable for complex routing requirements.
 Contour: It is build on top of Envoy proxy. It is designed to work seamlessly with kubernetes offering features like HTTP/2 and TLS Termination.
 Istio: Istio is a primarly a mesh service and can also functions as ingress controller offering effective traffic management capabilities, security features and observability.
+
+
+
