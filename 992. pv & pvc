@@ -1,0 +1,5 @@
+Whenever developer deploying an Application using Kubernetes to make the data in this application Persistant ,
+he raise the request for the persistent Volume it known as PVC. IT Adminstrators looks over the specifications
+of the PVC requests and provides Persistant Volumes (PV) as per required needs
+
+docs: https://geeksforgeeks.org/kubernetes-volumes/
