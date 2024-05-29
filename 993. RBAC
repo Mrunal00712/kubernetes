@@ -1,0 +1,14 @@
+What is Role-Based Access Control (RBAC)?
+RBAC, or Role-Based Access Control, is a way of regulating access to computer or network resources based on users’ roles. 
+In Kubernetes, RBAC is used to control what action users, groups of users, or service accounts can perform within a cluster. 
+Roles define a set of permissions, and role bindings connect those roles to a particular user, group, or service account.
+
+How to Implement RBAC in Kubernetes?
+Define Roles: Create roles specifying the actions accepted on certain resources.
+Create Role Bindings: Bind roles to customers, corporations, or carrier bills.
+Apply Role Bindings: Apply the role bindings to the cluster the use of “kubectl apply”
+
+Benefits of Using RBAC
+Security: Restrict user permissions, restricting potential attack from unintentional or malicious actions.
+Compliance: Facilitates adherence to safety guidelines and regulatory requirements.
+Scalability: Easily manage access to controls as your cluster and team grow.
