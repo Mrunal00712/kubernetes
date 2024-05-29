@@ -7,3 +7,7 @@ Incomig traffic on pod we called - Ingress
 and outgoing traffic from pod - Egress
 eg., any user accesing app it wil incoming(Ingress) for Frontend, and going from frontend server to backend server It will Egress for Frontens and ingress for Backend,
 lly, going req from backend to database it will egress and for database it will ingess
+
+docs: https://www.geeksforgeeks.org/how-to-use-kubernetes-network-policies/
+
+pratical: https://github.com/devopsproin/certified-kubernetes-administrator/tree/main/Network-Policy/lab-exercise
