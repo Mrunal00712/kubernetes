@@ -1,4 +1,9 @@
 Securing incoming and outgoing traffic k8s provide us the option of Network policies.
 Network policy is the object of k8s you can control the outgoing and incoming traffic of any pod
 network policy is applied on pod and you can control the i/o traffic of that pod, eg., creating a database policy on pod and can decide with pod should connect to our database.
-simiraly, we can allow trafic going on which pod
+simiraly, we can allow trafic going on which pod.
+
+Incomig traffic on pod we called - Ingress
+and outgoing traffic from pod - Egress
+eg., any user accesing app it wil incoming(Ingress) for Frontend, and going from frontend server to backend server It will Egress for Frontens and ingress for Backend,
+lly, going req from backend to database it will egress and for database it will ingess
